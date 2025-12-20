@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Chord Block App</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/tone@14.8.49/build/Tone.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>Chord Block App</h1>
+    </header>
+
+    <main>
+        <section class="panel">
+            <h2>Chords</h2>
+            <div id="chord-palette"></div>
+        </section>
+
+        <section class="panel">
+            <h2>Progression</h2>
+            <div id="progression"></div>
+            <button id="play">▶ Play</button>
+            <label for="bpm">BPM: <span id="bpm-value">120</span></label>
+            <input type="range" id="bpm" min="60" max="200" value="120" />
+        </section>
+    </main>
+    <script src="app.js"></script>
+
+</body>
+
+
+</html>
