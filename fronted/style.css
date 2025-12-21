@@ -74,19 +74,63 @@ main {
     flex-wrap: wrap;
 }
 
-
-/* 再生ボタン */
-#play {
-    margin-top: 16px;
-    width: 100%;
-    padding: 12px;
-    font-size: 16px;
-    border: none;
-    border-radius: 10px;
-    background: #4f46e5;
-    color: white;
-    cursor: pointer;
+.control-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
+
+.progression-area {
+    min-height: 120px;
+    padding: 12px;
+    border-radius: 10px;
+    background: #f9fafb;
+    border: 1px dashed #d1d5db;
+    margin-bottom: 20px;
+}
+
+.rest {
+    background: transparent;
+    color: #9ca3af;
+    border: 2px dashed #d1d5db;
+    font-weight: 400;
+}
+
+.playing {
+    background: #fde68a !important;
+    color: #92400e;
+}
+
+
+
+/* 再生ボタン（主役） */
+#play {
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+
+    border: none;
+    border-radius: 12px;
+
+    background: linear-gradient(135deg, #6366f1, #4f46e5);
+    color: white;
+
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(79, 70, 229, 0.35);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+#play:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 14px 28px rgba(79, 70, 229, 0.45);
+}
+
+#play:active {
+    transform: scale(0.97);
+}
+
 
 #bpm {
     width: 100%;
@@ -96,4 +140,19 @@ main {
 
 #play:hover {
     background: #4338ca;
+}
+
+#add-rest {
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+    border: none;
+    border-radius: 10px;
+    background: #e5e7eb;
+    color: #374151;
+    cursor: pointer;
+}
+
+#add-rest:hover {
+    background: #d1d5db;
 }

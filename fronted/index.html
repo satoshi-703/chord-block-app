@@ -21,10 +21,16 @@
 
         <section class="panel">
             <h2>Progression</h2>
-            <div id="progression"></div>
-            <button id="play">▶ Play</button>
-            <label for="bpm">BPM: <span id="bpm-value">120</span></label>
-            <input type="range" id="bpm" min="60" max="200" value="120" />
+            <div id="progression" class="progression-area"></div>
+
+            <div class="control-buttons">
+                <button id="play">▶ Play</button>
+                <button id="add-rest">＋ Rest</button>
+            </div>
+            <div class="bpm-area">
+                <label for="bpm">BPM: <span id="bpm-value">120</span></label>
+                <input type="range" id="bpm" min="60" max="200" value="120" />
+            </div>
         </section>
     </main>
     <script src="app.js"></script>

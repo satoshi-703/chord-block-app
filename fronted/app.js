@@ -46,6 +46,13 @@ const CHORD_LABELS = {
     sus4: "sus4"
 };
 
+const EMPTY_BLOCK = {
+    label: "—",
+    type: "rest",
+    notes: []
+};
+
+
 // =====================
 // 状態
 // =====================
@@ -101,6 +108,14 @@ NOTES.forEach(root => {
     });
 });
 
+const addRestBtn = document.getElementById("add-rest");
+
+addRestBtn.onclick = () => {
+    progression.push({ ...EMPTY_BLOCK });
+    renderProgression();
+};
+
+
 // =====================
 // パレットUI生成
 // =====================
@@ -138,6 +153,11 @@ function renderProgression() {
             progression.splice(i, 1);
             renderProgression();
         };
+        div.className = "chord";
+
+        if (chord.type === "rest") {
+            div.classList.add("rest");
+        }
 
         div.appendChild(label);
         div.appendChild(del);
@@ -152,13 +172,33 @@ const synth = new Tone.PolySynth().toDestination();
 
 playBtn.onclick = async () => {
     await Tone.start();
-    let time = Tone.now();
 
-    progression.forEach(chord => {
-        synth.triggerAttackRelease(chord.notes, "1n", time);
-        time += Tone.Time("1n").toSeconds();
+    Tone.Transport.stop();
+    Tone.Transport.cancel();
+
+    const blocks = document.querySelectorAll("#progression .chord");
+    blocks.forEach(b => b.classList.remove("playing"));
+
+    const interval = Tone.Time("1n").toSeconds();
+
+    progression.forEach((chord, i) => {
+        const t = i * interval;
+
+        // 音
+        Tone.Transport.scheduleOnce(time => {
+            synth.triggerAttackRelease(chord.notes, "1n", time);
+
+            // 表示（完全同期）
+            Tone.Draw.schedule(() => {
+                blocks.forEach(b => b.classList.remove("playing"));
+                blocks[i]?.classList.add("playing");
+            }, time);
+        }, t);
     });
+
+    Tone.Transport.start();
 };
+
 
 // =====================
 // BPM
