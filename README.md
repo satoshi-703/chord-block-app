@@ -34,7 +34,7 @@
 
 ## 🛠 使用技術
 
-- **HTML / CSS / JavaScript**
+- **HTML / CSS / JavaScript**!
 - **Tone.js**（Web Audio API ラッパー）
 - GitHub Pages（公開）
 
@@ -42,21 +42,14 @@
 
 ## 🎮 使い方
 
+[alt text](picture/chord-block-app.png)
+
 1. 上部の **コードパレット** からコードをクリック
 2. 下部の **Progression** に追加される
 3. 「▶ Play」ボタンで再生
 4. 不要なコードは「×」で削除
-5. BPM スライダーでテンポ調整
-
----
-
-## 🌐 デモ
-
-👉 **GitHub Pages**  
-https://ユーザー名.github.io/chord-block-app/
-
-※ 音が鳴らない場合は、一度画面をクリックしてから再生してください  
-（ブラウザの自動再生制限のため）
+5. 「Rest」ボタンで休符追加
+6. BPM スライダーでテンポ調整
 
 ---
 
