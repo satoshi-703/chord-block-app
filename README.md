@@ -42,7 +42,7 @@
 
 ## 🎮 使い方
 
-[alt text](picture/chord-block-app.png)
+![alt text](picture/chord-block-app.png)
 
 1. 上部の **コードパレット** からコードをクリック
 2. 下部の **Progression** に追加される
