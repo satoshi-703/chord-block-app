@@ -6,6 +6,7 @@
     <title>Chord Block App</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/tone@14.8.49/build/Tone.js"></script>
+    <script src="https://unpkg.com/@tonejs/midi"></script>
 </head>
 
 <body>
@@ -27,6 +28,12 @@
                 <button id="play">▶ Play</button>
                 <button id="add-rest">＋ Rest</button>
             </div>
+
+            <div class="panel">
+                <h2>Melody</h2>
+                <input type="file" id="melody-file" accept=".mid" />
+            </div>
+
             <div class="bpm-area">
                 <label for="bpm">BPM: <span id="bpm-value">120</span></label>
                 <input type="range" id="bpm" min="60" max="200" value="120" />

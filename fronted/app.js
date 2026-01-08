@@ -1,11 +1,24 @@
+let melodyData = null;
 // =====================
 // DOM（最初に定義する）
 // =====================
+const melodySynth = new Tone.PolySynth().toDestination();
 const palette = document.getElementById("chord-palette");
 const progressionDiv = document.getElementById("progression");
 const playBtn = document.getElementById("play");
 const bpmSlider = document.getElementById("bpm");
 const bpmValue = document.getElementById("bpm-value");
+
+// ファイル読み込み部分
+document.getElementById("melody-file").onchange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const arrayBuffer = await file.arrayBuffer();
+    // CDN版では「Midi」というグローバル変数が使えるようになります
+    melodyData = new Midi(arrayBuffer);
+    console.log("MIDI Loaded:", melodyData.name);
+};
 
 // =====================
 // 音楽理論データ
@@ -179,14 +192,31 @@ playBtn.onclick = async () => {
     const blocks = document.querySelectorAll("#progression .chord");
     blocks.forEach(b => b.classList.remove("playing"));
 
-    const interval = Tone.Time("1n").toSeconds();
+    // 2. 基準となる1拍の長さを取得
+    const baseInterval = Tone.Time("1n").toSeconds();
+    const speedMultiplier = 2 // 2倍にしたい
+    const chordInterval = baseInterval / speedMultiplier; // コードの間隔を3分の1にする
+
+    // --- メロディ（MIDI）のスケジュール ---
+    if (melodyData) {
+        melodyData.tracks.forEach(track => {
+            track.notes.forEach(note => {
+                Tone.Transport.schedule(time => {
+                    // melodySynth（メロディ専用）で鳴らす
+                    melodySynth.triggerAttackRelease(note.name, note.duration, time);
+                }, note.time); // MIDIファイル内の時間（秒）を使用
+            });
+        });
+    }
 
     progression.forEach((chord, i) => {
-        const t = i * interval;
+        const t = i * chordInterval
 
         // 音
         Tone.Transport.scheduleOnce(time => {
-            synth.triggerAttackRelease(chord.notes, "1n", time);
+            if (chord.type !== "rest") {
+                synth.triggerAttackRelease(chord.notes, chordInterval, time);
+            }
 
             // 表示（完全同期）
             Tone.Draw.schedule(() => {
